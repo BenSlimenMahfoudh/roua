@@ -58,26 +58,7 @@ const InboxA = () => {
 //           });
       
 //   }
-//   // pour afficvher tous les commentaires
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//   // pour afficvher tous les
 
 
     const userAdmin= JSON.parse(window.localStorage.getItem("user")) 
