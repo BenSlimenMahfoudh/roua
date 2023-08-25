@@ -21,6 +21,7 @@ async function loginUser(req, res) {
   // sign jwt
   let id = dbUser._id.toString();
   const user = {
+    id:id,
     f_name:dbUser.f_name,l_name:dbUser.l_name,
     email:dbUser.email,sexe:dbUser.sexe,
     matricule:dbUser.matricule,post:dbUser.post,

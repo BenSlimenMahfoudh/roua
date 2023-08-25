@@ -2,21 +2,15 @@ const app = require("./app");
 const { PORT, DB_URL } = require("./utils/config");
 const { connect } = require("./services/mongodb");
 
-
-
 const {createComment, getAllComments} =require("./models/comment.model")
 
-const http = require("http")
-const {Server}= require("socket.io")
-const serveur= http.createServer(app)
+const serveur=   app.listen(PORT,()=>{
+  console.log("connection...")
+});
 
-const io = new Server(serveur, {
+const io = require("socket.io")(serveur, {
     cors:{
-        origin:"http://localhost:3000/Boite-de-reception-admin",
-        methods:[
-            "GET",
-            "POST"
-        ]
+        origin:"http://localhost:3000",    
     }
 })
 
@@ -32,18 +26,17 @@ async function start() {
       console.error('Error fetching initial comments:', error);
     }
   
-    socket.on('newComment', async (commentText) => {
-      const newComment = createComment(commentText)
-      await newComment.save();
+    socket.on('newComment', async (comment) => {
+      console.log(comment)
+      const newComment = await createComment(comment)
       io.emit('newComment', newComment);
     });
   
-    socket.on('disconnect', () => {
+    socket.on('disconnect', () =>  {
       console.log('A user disconnected');
     });
   });
 
-  app.listen(PORT);
 
   console.log(`listening on : localhost:${PORT}...`);
 }
