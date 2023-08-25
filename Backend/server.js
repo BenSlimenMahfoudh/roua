@@ -22,7 +22,6 @@ const io = new Server(serveur, {
 
 async function start() {
   await connect(DB_URL);
-  console.log(io.)
   io.on('connection', async (socket) => {
     console.log('A user connected'+socket.id);
   
