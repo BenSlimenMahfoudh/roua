@@ -1,0 +1,156 @@
+.container-fluid-inscit{
+  background-color: #6056ff;
+  width: 100%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.container-inscit{
+  position: relative;
+  max-width: 900px;
+  width: 100%;
+  border-radius: 6px;
+  padding: 30px;
+  height: 85vh;
+  margin: auto;
+  background-color: #fff;
+}
+
+.container-inscit header{
+  position: relative;
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+}
+
+.container-inscit header::before{
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  height: 3px;
+  width: 27px;
+  border-radius: 8px;
+  background-color: #6056ff;
+}
+.container-inscit .form1{
+  position: relative;
+  margin-top: 16px;
+  min-height: 600px;
+  background:none;
+  overflow: hidden;
+  margin-bottom: -100px;
+}
+.container-inscit .form1 .formP{
+  position: absolute;
+  background-color: #fff;
+  transition: 0.3s ease;
+  
+}
+
+
+.form1.secActive .formP.first{
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-100%);
+}
+.container-inscit .form1 .title{
+  display: block;
+  margin-bottom: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  margin: 6px 0;
+  color: #333;
+}
+.container-inscit .form1 .fieldsP{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.form1 .fieldsP .input-fieldP{
+  display: flex;
+  width: calc(100% / 3 - 15px);
+  flex-direction: column;
+  margin: 4px 0;
+}
+.input-fieldP label{
+  font-size: 12px;
+  font-weight: 500;
+  color: #2e2e2e;
+}
+.input-fieldP input, select{
+  outline: none;
+  background-color: white;
+  font-size: 14px;
+  font-weight: 400;
+  color: #333;
+  border-radius: 5px;
+  border: 1px solid #aaa;
+  padding: 0 15px;
+  height: 42px;
+  margin: 8px 0;
+}
+.input-fieldP input :focus,
+.input-fieldP select:focus{
+  box-shadow: 0 3px 6px rgba(0,0,0,0.13);
+}
+.input-fieldP select,
+.input-fieldP input[type="date"]{
+  color: #333;
+}
+.input-fieldP input[type="date"]:valid{
+  color: #333;
+}
+
+
+.btn-sign{
+  background-color: #6056ff;
+  border: 1px solid #6056ff;
+  border-radius: .25rem;
+  box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  justify-content: center;
+  line-height: 1.25;
+  padding: calc(.800rem - 1px) calc(1.5rem - 1px);
+  width: 35%;
+  transition: 0.3s;
+  margin-top:10px;
+}
+.btn-sign:hover{
+  background-color: #170bc3;
+}
+
+.errSign{
+  color: red;
+  font-size: 15px;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+ margin-top: -40px; 
+ visibility: hidden;
+ transition: all ease 0.3s;
+}
+
+.actSignErr{
+  visibility: inherit;
+  margin-top: -10px;
+}
+
+@media (max-width: 750px) {
+  .container-inscit .form1{
+      overflow-y: scroll;
+  }
+  .container-inscit .form1::-webkit-scrollbar{
+     display: none;
+  }
+  .form1 .fieldsP .input-fieldP{
+      width: calc(100% / 2 - 15px);
+  }
+}
+
+@media (max-width: 550px) {
+  .form1 .fieldsP .input-fieldP{
+      width: 100%;
+  }
+}

@@ -1,0 +1,38 @@
+/* Styles for the quiz card */
+.quiz-card {
+    background-color: #f0f0f0;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Styles for question text */
+  .question-text {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  /* Styles for answer options */
+  .answer-section {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 10px;
+  }
+  
+  button {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    width: 100%;
+    cursor: pointer;
+  }
+  
+  /* Styles for score section */
+  .score-section {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+  
