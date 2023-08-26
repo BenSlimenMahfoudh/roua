@@ -11,8 +11,6 @@ const allComment =require("./routes/allComment.routes")
 
 
 
-
-
 app.use(express.json()) 
 app.use(cors())
 app.use(express.json()); // To parse the incoming requests with JSON payloads
