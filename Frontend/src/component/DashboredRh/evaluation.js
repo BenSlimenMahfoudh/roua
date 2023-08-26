@@ -8,14 +8,17 @@ const DemandeRh =() => {
     const [typeCongeList, setTypeCongeList] = useState([]);
     const [selectedTypeCongeId, setSelectedTypeCongeId] = useState("");
     const [error, setError] = useState(null);
-    const [user, setUser] = useState(null);
+    const [file, setFile] = useState(null);
     const [successMessage, setSuccessMessage] = useState("");
     const [nombreDeJours, setNombreDeJours] = useState(null);
-  
-    const userID = user?._id;
-  
+    
+    const userRH= JSON.parse(window.localStorage.getItem("user"))
+    const userID = userRH.id
 
-  
+    const handleFileChange = (event) => {
+      setFile(event.target.files[0]);
+    };
+
     const handleSubmit = async (e) => {
       e.preventDefault();
   
@@ -23,7 +26,8 @@ const DemandeRh =() => {
         dateDebut: dateD,
         dateFin: dateF,
         userId: userID,
-        typeCongeId: selectedTypeCongeId,
+        nbJours: nombreDeJours,
+        file: file,
       };
   
       try {
@@ -48,7 +52,7 @@ const DemandeRh =() => {
           // Clear form inputs after successful submission
           setDateD("");
           setDateF("");
-          setSelectedTypeCongeId("");
+          setFile("");
         }
       } catch (error) {
         setError(error);
@@ -67,6 +71,7 @@ const DemandeRh =() => {
       const days = Math.ceil(timeDiff / (1000 * 3600 * 24));
       return days;
     };
+
   
     return (
       <div>
@@ -93,14 +98,18 @@ const DemandeRh =() => {
                                       </div>
   
                                       <div className="input-fieldP">
+
                                         <label>Nombre de jours</label>
-                                        <input type="text" value={(calculateDays(dateD, dateF)+1) || 0} />
+                                        <input type="text" 
+                                        onChange={(e)=> setNombreDeJours(e.target.value)} 
+                                        value={(calculateDays(dateD, dateF)+1) || 0} />
+
                                       </div>                                 
                                   <div className="posBtn1">
   
                                       <button type = "button" className = "btn-warning" style={{position:"relative",right:"30px"}}>
                                           <i class = "fa fa-upload"></i> pièce jointe
-                                          <input type="file"/>
+                                          <input type="file" onChange={handleFileChange}/>
                                       </button>
                                       <button className="buttonD1" ><span className="text">Valider</span></button>
   
