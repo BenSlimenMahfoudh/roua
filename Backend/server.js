@@ -35,6 +35,10 @@ async function start() {
     socket.on('disconnect', () =>  {
       console.log('A user disconnected');
     });
+
+    socket.on("submitConge",(file)=>{
+      console.log(file)
+    })
   });
 
 

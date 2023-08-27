@@ -1,16 +1,21 @@
 import React, { useState, useEffect } from "react";
 import SideNavRH from "../sideNav/SideNavRH.js";
 import "../Style/dashbored/Demande.css";
+import {io} from "socket.io-client";
+const socket =io.connect("http://localhost:3001")
 
 const DemandeRh =() => {
+  useEffect(()=>{
+    socket.emit("connection")
+  })
+
+ const testclick=()=>{
+  console.log("clcik")
+ }
     const [dateD, setDateD] = useState("");
     const [dateF, setDateF] = useState("");
-    const [typeCongeList, setTypeCongeList] = useState([]);
-    const [selectedTypeCongeId, setSelectedTypeCongeId] = useState("");
-    const [error, setError] = useState(null);
     const [file, setFile] = useState(null);
-    const [successMessage, setSuccessMessage] = useState("");
-    const [nombreDeJours, setNombreDeJours] = useState(null);
+    // const [nombreDeJours, setNombreDeJours] = useState("");
     
     const userRH= JSON.parse(window.localStorage.getItem("user"))
     const userID = userRH.id
@@ -19,49 +24,21 @@ const DemandeRh =() => {
       setFile(event.target.files[0]);
     };
 
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-  
+    const handleSubmit =() => {
+
       const conge = {
         dateDebut: dateD,
         dateFin: dateF,
         userId: userID,
-        nbJours: nombreDeJours,
+        nbJours: calculateDays(dateD,dateF)+1 ||0,
         file: file,
       };
-  
-      try {
-        const response = await fetch("/api/conge/", {
-          method: "POST",
-          body: JSON.stringify(conge),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-  
-        const json = await response.json();
-  
-        if (!response.ok) {
-          setError(json.error);
-        } else {
-          // Calculate number of days between start and end dates
-          const days = calculateDays(dateD, dateF);
-          setNombreDeJours(days);
-  
-          setSuccessMessage("La demande de congé a été envoyée avec succès!");
-          // Clear form inputs after successful submission
-          setDateD("");
-          setDateF("");
-          setFile("");
-        }
-      } catch (error) {
-        setError(error);
-      }
-    };
-  
-    const handleTypeCongeChange = (event) => {
-      setSelectedTypeCongeId(event.target.value);
-    };
+      console.log(conge)
+      socket.emit('submitConge', conge);
+      setDateD("")
+      setDateF("")
+      setFile(null)
+    }
   
     // Function to calculate number of days between two dates
     const calculateDays = (startDate, endDate) => {
@@ -71,6 +48,8 @@ const DemandeRh =() => {
       const days = Math.ceil(timeDiff / (1000 * 3600 * 24));
       return days;
     };
+  
+
 
   
     return (
@@ -81,12 +60,7 @@ const DemandeRh =() => {
             <div class="col py-3">
               <div className="container-profil">
                 <header className="titleD">Evaluation</header>
-                <form className="form1" onSubmit={handleSubmit}>
-                  {successMessage && (
-                    <div className="alert alert-success" role="alert">
-                      {successMessage}
-                    </div>
-                  )}
+                <div className="form1">
                                   <div className="fieldsP ">
                                       <div className="input-fieldP">
                                           <label>Date de debut</label>
@@ -101,21 +75,23 @@ const DemandeRh =() => {
 
                                         <label>Nombre de jours</label>
                                         <input type="text" 
-                                        onChange={(e)=> setNombreDeJours(e.target.value)} 
+                                        
                                         value={(calculateDays(dateD, dateF)+1) || 0} />
 
                                       </div>                                 
                                   <div className="posBtn1">
   
-                                      <button type = "button" className = "btn-warning" style={{position:"relative",right:"30px"}}>
+                                      <button  className = "btn-warning" style={{position:"relative",right:"30px"}}>
                                           <i class = "fa fa-upload"></i> pièce jointe
-                                          <input type="file" onChange={handleFileChange}/>
+                                          <input onClick={testclick} id="Filepdf" type="file" onChange={handleFileChange}/>
                                       </button>
-                                      <button className="buttonD1" ><span className="text">Valider</span></button>
+                                      <button className="buttonD1" onClick={handleSubmit} >
+                                          <span className="text">Valider</span>
+                                      </button>
   
                                   </div>
                                   </div>
-                              </form>
+                              </div>
                       </div>
                   </div>
           </div>

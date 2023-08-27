@@ -1,8 +1,20 @@
+.boxComment{
+    height: 100vh;
+    padding-bottom: -200px;
+    position: fixed;
+    margin-left: 20%;
+}
+
 .AllComment{
     /* background-color: aqua; */
     border: 2px rgb(61, 61, 61) solid;
     border-radius: 10px;
-    padding: 18px 25px;
+    /* padding: 18px 25px; */
+    width: 100%;
+    height: 300px;
+    overflow-y: scroll;
+    border: 1px solid #ccc;
+    padding: 10px;
      
 }
 .partcomment{
@@ -23,7 +35,7 @@
     padding: 10px;
     
 }
-.boxComment{
+.boxcomment{
     width: 100%;
     border: 0.5px solid black;
     margin: 5px 0;
